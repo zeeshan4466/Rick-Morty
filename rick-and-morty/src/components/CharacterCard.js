@@ -1,32 +1,25 @@
+// src/components/CharacterCard.js
 import React from 'react';
-import { Card, CardContent, CardMedia, Typography, Badge, Box } from '@mui/material';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Use useNavigate instead of useHistory
+import { Card, CardContent, Typography, Button } from '@mui/material';
 
 const CharacterCard = ({ character }) => {
-  const history = useHistory();
+  const navigate = useNavigate(); // Initialize the navigate function
 
   const handleClick = () => {
-    history.push(`/character/${character.id}`);
+    navigate(`/character/${character.id}`); // Navigate to the character detail page
   };
 
   return (
-    <Card onClick={handleClick} sx={{ maxWidth: 345, cursor: 'pointer' }}>
-      <CardMedia
-        component="img"
-        alt={character.name}
-        height="140"
-        image={character.image}
-      />
+    <Card>
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {character.name}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Species: {character.species}
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Status: <Badge color={character.status === 'Alive' ? 'success' : 'error'}>{character.status}</Badge>
-        </Typography>
+        <Typography variant="h6">{character.name}</Typography>
+        <Typography variant="body2">Species: {character.species}</Typography>
+        <Typography variant="body2">Status: {character.status}</Typography>
+
+        <Button onClick={handleClick} variant="contained" color="primary">
+          View Details
+        </Button>
       </CardContent>
     </Card>
   );
