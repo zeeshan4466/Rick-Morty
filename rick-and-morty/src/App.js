@@ -2,8 +2,8 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container, CssBaseline, AppBar, Toolbar, Typography, TextField } from '@mui/material';
-import CharacterDetail from './pages/CharacterDetail';
 import Home from './Pages/Home';
+import CharacterDetail from './Pages/CharacterDetail';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
