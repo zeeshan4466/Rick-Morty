@@ -79,37 +79,42 @@ const CharacterList = ({ searchQuery }) => {
       </div>
 
       {/* Pagination Component */}
-      <Pagination>
-        <Pagination.Prev onClick={() => handlePageChange(prevPage)} />
-        
-        {page > pageRange + 1 && (
-          <Pagination.Item onClick={() => handlePageChange(1)}>
-            1
-          </Pagination.Item>
-        )}
+      <div className='row justify-content-center'>
+        <div className='col-4'>
 
-        {page > pageRange + 2 && <Pagination.Ellipsis />}
+            <Pagination>
+                <Pagination.Prev onClick={() => handlePageChange(prevPage)} />
+                
+                {page > pageRange + 1 && (
+                <Pagination.Item onClick={() => handlePageChange(1)}>
+                    1
+                </Pagination.Item>
+                )}
 
-        {pageNumbers.map((pageNum) => (
-          <Pagination.Item
-            key={pageNum}
-            active={pageNum === page}
-            onClick={() => handlePageChange(pageNum)}
-          >
-            {pageNum}
-          </Pagination.Item>
-        ))}
+                {page > pageRange + 2 && <Pagination.Ellipsis />}
 
-        {page < totalPages - pageRange - 1 && <Pagination.Ellipsis />}
+                {pageNumbers.map((pageNum) => (
+                <Pagination.Item
+                    key={pageNum}
+                    active={pageNum === page}
+                    onClick={() => handlePageChange(pageNum)}
+                >
+                    {pageNum}
+                </Pagination.Item>
+                ))}
 
-        {page < totalPages - pageRange && (
-          <Pagination.Item onClick={() => handlePageChange(totalPages)}>
-            {totalPages}
-          </Pagination.Item>
-        )}
+                {page < totalPages - pageRange - 1 && <Pagination.Ellipsis />}
 
-        <Pagination.Next onClick={() => handlePageChange(nextPage)} />
-      </Pagination>
+                {page < totalPages - pageRange && (
+                <Pagination.Item onClick={() => handlePageChange(totalPages)}>
+                    {totalPages}
+                </Pagination.Item>
+                )}
+
+                <Pagination.Next onClick={() => handlePageChange(nextPage)} />
+            </Pagination>
+        </div>
+      </div>
     </>
   );
 };
