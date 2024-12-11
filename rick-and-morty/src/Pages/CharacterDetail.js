@@ -1,58 +1,54 @@
+// src/pages/CharacterDetail.js
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Box, Typography, CircularProgress, Button } from '@mui/material';
-import { getCharacterDetail } from '../api'; // API call utility to fetch character details
+import { Container, Spinner, Button, Card } from 'react-bootstrap';
+import axios from 'axios';
 
 const CharacterDetail = () => {
-  const { id } = useParams(); // Get the character ID from the URL
+  const { id } = useParams();
   const [character, setCharacter] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCharacterDetail = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        setLoading(true);
-        setError(null);
-        const data = await getCharacterDetail(id);
-        setCharacter(data);
+        const response = await axios.get(`https://rickandmortyapi.com/api/character/${id}`);
+        setCharacter(response.data);
       } catch (err) {
         setError('Failed to fetch character details');
       } finally {
         setLoading(false);
       }
     };
-
     fetchCharacterDetail();
   }, [id]);
 
-  if (loading) return <CircularProgress />;
-  if (error) return <Typography color="error">{error}</Typography>;
+  if (loading) {
+    return <Spinner animation="border" />;
+  }
+
+  if (error) {
+    return <div>{error}</div>;
+  }
 
   return (
-    <Box sx={{ mt: 3 }}>
-      <Typography variant="h4">{character.name}</Typography>
-      <Typography variant="h6">Species: {character.species}</Typography>
-      <Typography variant="h6">Status: {character.status}</Typography>
-      <Typography variant="h6">Gender: {character.gender}</Typography>
-      <Typography variant="h6">Origin: {character.origin.name}</Typography>
-      <Typography variant="h6">Location: {character.location.name}</Typography>
-
-      <Box sx={{ mt: 3 }}>
-        <Typography variant="h6">Appeared in episodes:</Typography>
-        <ul>
-          {character.episode.map((episode, index) => (
-            <li key={index}>
-              <Typography variant="body1">{episode}</Typography>
-            </li>
-          ))}
-        </ul>
-      </Box>
-
-      <Button variant="contained" color="primary" sx={{ mt: 3 }} onClick={() => window.history.back()}>
-        Back to Character List
-      </Button>
-    </Box>
+    <Container className="my-4">
+      <Card>
+        <Card.Img variant="top" src={character.image} />
+        <Card.Body>
+          <Card.Title>{character.name}</Card.Title>
+          <Card.Text>Species: {character.species}</Card.Text>
+          <Card.Text>Status: {character.status}</Card.Text>
+          <Card.Text>Gender: {character.gender}</Card.Text>
+          <Card.Text>Origin: {character.origin.name}</Card.Text>
+          <Card.Text>Location: {character.location.name}</Card.Text>
+          <Button variant="primary" onClick={() => window.history.back()}>Back to List</Button>
+        </Card.Body>
+      </Card>
+    </Container>
   );
 };
 

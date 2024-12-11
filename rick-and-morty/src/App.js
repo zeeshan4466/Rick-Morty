@@ -21,12 +21,12 @@ function App() {
       <CssBaseline />
       
       {/* Main Content */}
-      <Container>
+      <div className='container'>
         <Routes> {/* Replace Switch with Routes */}
           <Route path="/" element={<Home searchQuery={searchQuery} />} /> {/* Home Page with search */}
           <Route path="/character/:id" element={<CharacterDetail />} /> {/* Character Detail Page */}
         </Routes>
-      </Container>
+      </div>
     </div>
   </Router>
   );

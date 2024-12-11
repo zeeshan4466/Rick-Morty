@@ -1,22 +1,22 @@
+// src/pages/Home.js
 import React, { useState } from 'react';
-import { Container, TextField, Box } from '@mui/material';
+import { Form, Container } from 'react-bootstrap';
 import CharacterList from '../components/CharacterList';
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  const [page, setPage] = useState(1);
 
   return (
-    <Container>
-      <TextField
-        label="Search characters"
-        variant="outlined"
-        fullWidth
+    <Container className="my-4">
+      <h1>Rick and Morty Character Explorer</h1>
+      <Form.Control
+        type="text"
+        placeholder="Search characters"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        sx={{ mb: 3 }}
+        className="mb-4"
       />
-      <CharacterList searchQuery={searchQuery} page={page} />
+      <CharacterList searchQuery={searchQuery} />
     </Container>
   );
 };
